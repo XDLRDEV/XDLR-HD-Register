@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>人员登记</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+<body>
+
+<div class="container">
+    <div class="row my-2">
+        <div class="col-md-12">
+
+            <div class="modal" id="waitingModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">请等待</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="d-flex align-items-center">
+                                <strong>正在保存...</strong>
+                                <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="jumbotron">
+                <h2 th:if="${action eq 'register'}">
+                    环大进出人员信息登记
+                </h2>
+                <h2 th:if="${action eq 'edit'}">
+                    环大进出人员信息修改
+                </h2>
+                <span th:if="${action eq 'register'}">
+                    首次使用，请先登记个人信息。
+                </span>
+                <span th:if="${action eq 'edit'}">
+                    已经登记过的用户，可以修改信息。
+                </span>提交成功会返回一个二维码，请保存二维码，下次进入大楼出示二维码和身份证，工作人员完成扫码，核对身份后，方可进入。
+            </div>
+
+            <form th:action="'/huanda/user/' + ${action}" method="post" autocomplete="on" onSubmit="onFormSubmit()">
+                <div class="form-group row">
+                    <label for="name" class="col-sm-3 col-form-label">姓名<font class="text-danger">*</font></label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="name" name="name" minlength="2" maxlength="20"
+                               required>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="phone" class="col-sm-3 col-form-label">手机号码<font class="text-danger">*</font></label>
+                    <div class="col-sm-9">
+                        <input type="tel" class="form-control" id="phone" name="phone" minlength="11" maxlength="11"
+                               pattern="^1(?:3\d|4[4-9]|5[0-35-9]|6[67]|7[013-8]|8\d|9\d)\d{8}$" required>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="idNo" class="col-sm-3 col-form-label">身份证号码<font class="text-danger">*</font></label>
+                    <div class="col-sm-9">
+                        <input type="tel" class="form-control" id="idNo" name="idNo" minlength="15" maxlength="18"
+                               pattern="^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$|^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$" required>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="company" class="col-sm-3 col-form-label">公司名称<font class="text-danger">*</font></label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="company" name="company" minlength="2" maxlength="20"
+                               required>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="companyAddress" class="col-sm-3 col-form-label">公司房间号<font class="text-danger">*</font></label>
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control" id="companyAddress" name="companyAddress" min="0" max="10000" required>
+                    </div>
+                </div>
+
+                <fieldset class="form-group">
+                    <div class="row">
+                        <legend class="col-form-label col-sm-3 pt-0">最近14天去过湖北<font class="text-danger">*</font>
+                        </legend>
+                        <div class="col-sm-9">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="toHubei" id="toHubei"
+                                       value="1">
+                                <label class="form-check-label" for="toHubei">
+                                    是
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="toHubei" id="notToHubei"
+                                       value="0" checked>
+                                <label class="form-check-label" for="notToHubei">
+                                    否
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <div class="row">
+                        <legend class="col-form-label col-sm-3 pt-0">最近14天去过武汉<font class="text-danger">*</font>
+                        </legend>
+                        <div class="col-sm-9">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="toWuhan" id="toWuhan"
+                                       value="1">
+                                <label class="form-check-label" for="toWuhan">
+                                    是
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="toWuhan" id="notToWuhan"
+                                       value="0" checked>
+                                <label class="form-check-label" for="notToWuhan">
+                                    否
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <div class="row">
+                        <legend class="col-form-label col-sm-3 pt-0">最近有发热症状<font class="text-danger">*</font></legend>
+                        <div class="col-sm-9">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="isFever" id="isFever"
+                                       value="1">
+                                <label class="form-check-label" for="isFever">
+                                    是
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="isFever" id="noFever"
+                                       value="0" checked>
+                                <label class="form-check-label" for="noFever">
+                                    否
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <div class="row">
+                        <legend class="col-form-label col-sm-3 pt-0">已经感染新冠病毒<font class="text-danger">*</font></legend>
+                        <div class="col-sm-9">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="isNewCoronavirus"
+                                       id="isNewCoronavirus"
+                                       value="1">
+                                <label class="form-check-label" for="isNewCoronavirus">
+                                    是
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="isNewCoronavirus"
+                                       id="noNewCoronavirus"
+                                       value="0" checked>
+                                <label class="form-check-label" for="noNewCoronavirus">
+                                    否
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <div class="form-group row">
+                    <div class="col-sm-9">
+                        <button type="submit" class="btn btn-primary">
+                            提交
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-9">
+                        <button type="reset" class="btn btn-primary">
+                            重置
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="register.js"></script>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+</html>
