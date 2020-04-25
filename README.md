@@ -150,19 +150,21 @@ Location of the server tomcat log:
 
 ## Reference ##
 
-[https://spring.io/guides/gs/serving-web-content/](https://spring.io/guides/gs/serving-web-content/)
+https://spring.io/guides/gs/serving-web-content/
 
-[https://spring.io/guides/gs/rest-service/](https://spring.io/guides/gs/rest-service/)
+https://spring.io/guides/gs/rest-service/
 
-[https://spring.io/guides/gs/accessing-data-mysql/](https://spring.io/guides/gs/accessing-data-mysql/)
+https://spring.io/guides/gs/accessing-data-mysql/
 
-[https://spring.io/guides/gs/accessing-data-rest/](https://spring.io/guides/gs/accessing-data-rest/)
+https://spring.io/guides/gs/accessing-data-rest/
 
-[https://spring.io/guides/gs/consuming-rest-jquery/](https://spring.io/guides/gs/consuming-rest-jquery/)
+https://spring.io/guides/gs/consuming-rest-jquery/
 
-[spring-boot-appendix-application-properties](https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html)
+https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#preface
 
-[https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/index.html](https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/index.html)
+https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+
+https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/index.html
 
 ## 其它 ##
 
