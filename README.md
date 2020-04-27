@@ -22,7 +22,10 @@ You can customize the greeting with an optional name parameter in the query stri
 ## Access User Data ##
 
 The following curl command register a user:
-    $ curl localhost:8080/demo/user/register -d idNo=620525186905125907 -d name=First -d phone=18364308360 -d company=xdlr -d companyAddress=1919 -d toHubei=false -d toWuhan=false -d isFever=false -d isNewCoronavirus=false
+
+```
+$ curl localhost:8080/demo/user/register -d idNo=620525186905125907 -d name=First -d phone=18364308360 -d company=xdlr -d companyAddress=1919 -d toHubei=false -d toWuhan=false -d isFever=false -d isNewCoronavirus=false
+```
 
 The reply should be as follows:
 
@@ -30,7 +33,7 @@ The reply should be as follows:
 
 The following curl command edit a user:
 
-    curl localhost:8080/demo/user/edit -d idNo=620525186905125907 -d name=First -d phone=18364308360 -d company=xdlr -d companyAddress=1919 -d toHubei=false -d toWuhan=false -d isFever=false -d isNewCoronavirus=false
+    $ curl localhost:8080/demo/user/edit -d idNo=620525186905125907 -d name=First -d phone=18364308360 -d company=xdlr -d companyAddress=1919 -d toHubei=false -d toWuhan=false -d isFever=false -d isNewCoronavirus=false
 
 The following command shows all the users:
     
@@ -46,7 +49,7 @@ The reply should be as follows:
 
 The following command record user temperature:
 
-    curl localhost:8080/demo/user/temperature/record -d idNo=620525186905125907 -d temperature=37
+    $ curl localhost:8080/demo/user/temperature/record -d idNo=620525186905125907 -d temperature=37
 
 ## Create A New Database ##
 
@@ -126,16 +129,16 @@ view process, port
 ## Production access ##
 
     注册用户
-    curl ip:8085/data/user/register -d idNo=620525186905125907 -d name=First -d phone=18364308360 -d company=xdlr -d companyAddress=1919 -d toHubei=false -d toWuhan=false -d isFever=false -d isNewCoronavirus=false
+    $ curl ip:8085/data/user/register -d idNo=620525186905125907 -d name=First -d phone=18364308360 -d company=xdlr -d companyAddress=1919 -d toHubei=false -d toWuhan=false -d isFever=false -d isNewCoronavirus=false
     
     提交一次体温测试，可以多次提交
-    curl ip:8085/data/user/temperature/record -d idNo=620525186905125907 -d temperature=37
+    $ curl ip:8085/data/user/temperature/record -d idNo=620525186905125907 -d temperature=37
     
     查看所有用户信息
-    curl 'http://ip:8085/data/user/all'
+    $ curl 'http://ip:8085/data/user/all'
     
     查看某个用户信息
-    curl 'http://ip:8085/data/user?idNo=620525186905125907'
+    $ curl 'http://ip:8085/data/user?idNo=620525186905125907'
 
 ## Logging ##
 
@@ -146,7 +149,10 @@ Location of the app log file:
     my-app/logs/access_log.app.log
 
 Location of the server tomcat log:
-    my-tomcat/logs
+
+```
+my-tomcat/logs
+```
 
 ## Reference ##
 
